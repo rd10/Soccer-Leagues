@@ -26,7 +26,7 @@ public class Main {
         do {
             System.out.printf("What type of tournament do you want to play: ");
             String amount = reader.nextLine();
-            choice = Validate.isInteger(amount);
+            choice = Validate.convertToInteger(amount);
             switch (choice) {
                 case 1:
                     num = Prompt.NumberOfTeams("league");
@@ -38,8 +38,8 @@ public class Main {
                     num = Prompt.NumberOfTeams("knockout");
                     teams = Prompt.populateTeams(num);
                     int againstEach = Prompt.vsEachTeam();
-                    boolean finalIsMultipleGames = (num != 2) ? Prompt.finalMatch(againstEach) : false;              // if more only two  teams dont prompt for how many games in the final
-                    boolean awayGoalTieBreaker = ((againstEach & 1) == 0) ? Prompt.awayGoalTieBreaker() : false;    // if against each is even then dont prompt for away goal as the tiebreaker
+                    boolean finalIsMultipleGames = (num != 2 && againstEach > 1) && Prompt.finalMatch(againstEach);  // if more only two  teams dont prompt for how many games in the final
+                    boolean awayGoalTieBreaker = ((againstEach & 1) == 0) && Prompt.awayGoalTieBreaker();           // if against each is even then dont prompt for away goal as the tiebreaker
                     boolean awayGoalInFinal = false;
                     if(finalIsMultipleGames && awayGoalTieBreaker){
                         awayGoalInFinal = Prompt.awayGoalInFinal();
@@ -50,7 +50,7 @@ public class Main {
                 case 0:
                     System.out.println("Goodbye");
                 default:
-                    System.out.printf("Unknown choice '%s' . please try again %n%n");
+                    System.out.println("Unknown choice. please try again \n");
             }
         }while (choice != 0);
 

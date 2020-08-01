@@ -32,7 +32,7 @@ public class Knockout {
                     againstEach = 1;
                 }
 
-                if (finalIsMultipleGames && !awayGoalInFinal) { //do not use awaygoal as the tiebreaker for the final if user requested
+                if (!finalIsMultipleGames || !awayGoalInFinal) { //do not use awaygoal as the tiebreaker for the final if user requested
                     setAwayGoalTieBreaker(false);
                 }
             }
@@ -63,7 +63,7 @@ public class Knockout {
                 count++;
             }
         }
-        System.out.printf("The champion is %s \n", remainingTeams.get(0).getName());
+        System.out.printf("\nThe champion is %s!! \n\n", remainingTeams.get(0).getName());
     }
 
     public List<Team> nextRoundTeams(Series series, List<Team> remainingTeams) {
