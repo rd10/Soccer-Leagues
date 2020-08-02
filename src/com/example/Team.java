@@ -1,7 +1,7 @@
 package com.example;
 
 public class Team {
-    private String name;
+    private final String name;
     private int games, wins, draws, losses, points, goalsFor, goalsAgainst, goalDifference;
 
     public Team(String name) {

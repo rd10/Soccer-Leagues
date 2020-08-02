@@ -3,24 +3,19 @@ package com.example;
 import java.util.List;
 
 public class League {
-    private List<Team> teams;
-    private int againstEach;
+    private final List<Team> teams;
 
     public League(List<Team> teams) {
         this.teams = teams;
     }
 
     public void beginLeague() {
-        againstEach = Prompt.vsEachTeam();
+        int againstEach = Prompt.vsEachTeam();
         Schedule schedule = new Schedule(teams, againstEach, "league");
         schedule.setLeagueMatches();
         List<Match> matches = schedule.getMatches();
 
-        Team homeTeam, awayTeam;
         for (Match match : matches) {
-            homeTeam = match.getHomeTeam();
-            awayTeam = match.getAwayTeam();
-
             Prompt.matchScore(match); //index 0 is home team's score on returned array
             calculatePoints(match);
             Display.table(teams);

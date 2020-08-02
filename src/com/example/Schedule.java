@@ -4,10 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Schedule {
-    private List<Team> teams;
+    private final List<Team> teams;
     private int numberOfTeams;
-    private List<Match> matches = new ArrayList<>();
-    private int againstEach;
+    private final List<Match> matches = new ArrayList<>();
+    private final int againstEach;
     private String tournamentType;
 
     public Schedule(List<Team> teams, int againstEach, String tournamentType){
@@ -32,11 +32,16 @@ public class Schedule {
     public void setLeagueMatches(){
         //(numberOfTeams - 1) * numberOfTeams)/2
 
-        int rounds;
-        int count = numberOfTeams - 1;
+        int rounds, count, saveCount;
         Match match;
 
-        rounds = (numberOfTeams %2 == 0) ? numberOfTeams -1 : numberOfTeams;                       //calculate the amount of rounds based on amount of teams
+        if(numberOfTeams %2 == 0){
+            rounds = count = saveCount = numberOfTeams -1;
+        }
+        else {
+            rounds = numberOfTeams;                       //calculate the amount of rounds based on amount of teams
+            count = saveCount = numberOfTeams - 2;
+        }
 
         for(int j=0; j<rounds; j++){
             for(int i = 0; i<numberOfTeams/2; i++) {                               //numberOfTeams/2 = amount of games per round
@@ -52,11 +57,11 @@ public class Schedule {
                 count --;
             }
 
-            count = numberOfTeams - 1;                      // count goes back to the last team in the array to begin matching teams again for the next round
+            count = saveCount;                              // count goes back to the initial value in the array to begin matching teams again for the next round
             rotateTeams();                                  // use the round robin method so every team will play a new team each round
         }
             againstEachTeam();                              //create more matches depending on how many times each team plays one another
-            System.out.printf("\n");
+        System.out.print("\n");
     }
 
     public void setKnockoutMatches(){
@@ -88,13 +93,13 @@ public class Schedule {
 
     //needed to implement an algorithm for a round robin tournament
     public void rotateTeams(){
-        int rotateAt = 0;                          // if there is an odd number of teams rotate them all
-        if(numberOfTeams %2 == 0) rotateAt = 1;           // if there is an even numer of teams rotate all except the first one
+        int rotateAt = 0;                                       // if there is an odd number of teams rotate them all
+        if(numberOfTeams %2 == 0) rotateAt = 1;                 // if there is an even numer of teams rotate all except the first one
 
         Team temp;
-        temp = teams.get(rotateAt);               // store the first team in a temporary location to no lose it when it's replaced
+        temp = teams.get(rotateAt);                             // store the first team in a temporary location to no lose it when it's replaced
         for(int i = rotateAt; i< numberOfTeams -1; i++) {
-            teams.set(i, teams.get(i+1));          // replace team at index k with team at index k+1
+            teams.set(i, teams.get(i+1));                       // replace team at index k with team at index k+1
         }
         teams.set((numberOfTeams -1), temp);
     }

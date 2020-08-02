@@ -19,7 +19,7 @@ public class Knockout {
     }
 
     public void beginKnockout() {
-        int knockoutRounds = Math.getExponent(teams.size());
+        int knockoutRounds = Math.getExponent(teams.size());//(how many rounds. ex: quarterfinal, semifinal, final
         List<Series> seriesList = new ArrayList<>();
         List<Team> remainingTeams = new ArrayList<>(teams); //new list which does not point/equal the 'teams' list
         int count = 0;
