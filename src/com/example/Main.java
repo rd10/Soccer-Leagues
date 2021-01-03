@@ -24,7 +24,7 @@ public class Main {
         }
 
         do {
-            System.out.printf("What type of tournament do you want to play: ");
+            System.out.print("What type of tournament do you want to play: ");
             String amount = reader.nextLine();
             choice = Validate.convertToInteger(amount);
             switch (choice) {
@@ -37,9 +37,16 @@ public class Main {
                 case 2:
                     num = Prompt.NumberOfTeams("knockout");
                     teams = Prompt.populateTeams(num);
-                    int againstEach = Prompt.vsEachTeam();
-                    boolean finalIsMultipleGames = (num != 2 && againstEach > 1) && Prompt.finalMatch(againstEach);  // if more only two  teams dont prompt for how many games in the final
-                    boolean awayGoalTieBreaker = ((againstEach & 1) == 0) && Prompt.awayGoalTieBreaker();           // if against each is even then dont prompt for away goal as the tiebreaker
+                    int againstEach = Prompt.vsEachTeam(); //how many teams will each team play one another
+
+                    boolean finalIsMultipleGames = false;
+                    if(num != 2 && againstEach > 1){ // if only two  teams, dont prompt for how many games in the final
+                        finalIsMultipleGames = Prompt.finalMatch(againstEach);
+                    }
+                    boolean awayGoalTieBreaker =false;
+                    if((againstEach & 1) == 0) { // if against each is even then dont prompt for away goal as the tiebreaker
+                        awayGoalTieBreaker = Prompt.awayGoalTieBreaker();
+                    }
                     boolean awayGoalInFinal = false;
                     if(finalIsMultipleGames && awayGoalTieBreaker){
                         awayGoalInFinal = Prompt.awayGoalInFinal();

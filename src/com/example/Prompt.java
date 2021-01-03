@@ -18,12 +18,14 @@ public class Prompt {
             numberOfTeams = reader.nextLine();
             num = Validate.convertToInteger(numberOfTeams);
             valid = Validate.isRangeValid(2, 32, num);
-            if (tournamentType.equals("knockout") && valid) {
-                if ((num & (num - 1)) != 0) {
-                    valid = false; //integer is not 2^n
-                    System.out.println("Amount must be 2,4,8,16, or 32");
+            if(valid){
+                if (tournamentType.equals("knockout")) {
+                    if ((num & (num - 1)) != 0) {
+                        valid = false; //integer is not 2^n
+                        System.out.println("Amount must be 2,4,8,16, or 32");
+                    }
                 }
-            }
+            } else System.out.println("Invalid amount");
         } while (!valid);
         return num;
     }

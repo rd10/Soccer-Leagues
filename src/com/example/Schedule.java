@@ -60,7 +60,7 @@ public class Schedule {
             count = saveCount;                              // count goes back to the initial value in the array to begin matching teams again for the next round
             rotateTeams();                                  // use the round robin method so every team will play a new team each round
         }
-            againstEachTeam();                              //create more matches depending on how many times each team plays one another
+        againstEachTeam();                              //create more matches depending on how many times each team plays one another
         System.out.print("\n");
     }
 
